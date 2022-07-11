@@ -1,13 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
 import { useMovieModel } from "../models/useMovieModel";
-import Navigation from "../component/Navigation";
 import Thumbnail from "../component/Thumbnail";
 import { useState } from "react";
 import Card from "../component/Card";
 import AccessUserDB from "../models/AccessUserDB";
 import { getLoggedInUser, saveToken } from "../utils/useAccount";
+import useIntersectionObserver from "../utils/useIntersectionObserver";
 
 export default function Main() {
   const { movies, getMovies, searchMovies } = useMovieModel();
@@ -39,9 +39,15 @@ export default function Main() {
     saveToken({ ...loggedInUser, favorites: favorites });
   };
 
+  // -----------
+  const scrollEndElement = useRef(null);
+  const onIntersect = () => {
+    // 여기에 영화 불러오는 함수 입력
+  };
+  useIntersectionObserver(scrollEndElement, onIntersect);
+
   return (
     <Container className="Container">
-      <Navigation movies={movies} />
       <Contents className="Contents">
         {movies ? (
           movies.results?.map((movie) => (
@@ -58,18 +64,18 @@ export default function Main() {
           />
         )}
       </Contents>
+      <Intersection ref={scrollEndElement} />
     </Container>
   );
 }
 
 const Container = styled.div`
-  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: red;
+  overflow-y: scroll;
 `;
 export const Contents = styled.div`
-  overflow-y: scroll;
   padding: 0 2rem;
   gap: 2rem;
   height: 100%;
@@ -79,4 +85,10 @@ export const Contents = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+`;
+
+const Intersection = styled.div`
+  background-color: red;
+  height: 40px;
+  width: 100%;
 `;
