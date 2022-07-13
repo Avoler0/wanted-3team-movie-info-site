@@ -1,10 +1,8 @@
-
 import React from "react";
 import styled from "styled-components";
 import { useNavigate } from "react-router";
 import NavigationButtons from "./NavigationButtons";
 import NavigationSearch from "./NavigationSearch";
-
 export default function Navigation({ movies }) {
   const navigate = useNavigate();
 
@@ -12,7 +10,7 @@ export default function Navigation({ movies }) {
     <Container>
       <Wrap>
         <LogoWrap onClick={() => navigate("/")}>
-          <span>Movie</span>
+          <span>3ChaFlix</span>
         </LogoWrap>
         <NavigationSearch movies={movies} />
         <NavigationButtons />
@@ -23,7 +21,8 @@ export default function Navigation({ movies }) {
 
 const Container = styled.header`
   position: sticky;
-  height: 70px;
+  min-height: 70px;
+  height: 7%;
   width: 100%;
   background-color: #262633;
   border-bottom: 2px solid black;
@@ -36,10 +35,12 @@ const Wrap = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 16px;
-  width: 70vw;
+  width: 93vw;
   margin: 0 auto;
 `;
 const LogoWrap = styled.div`
+  font-family: "Oswald", sans-serif;
+  src: url("https://fonts.googleapis.com/css2?family=Oswald:wght@600&display=swap");
   transition: all 400ms ease;
   cursor: pointer;
   height: 30px;
@@ -50,6 +51,9 @@ const LogoWrap = styled.div`
   }
   span {
     margin-left: 5px;
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 4px;
   }
   @keyframes blink-effect {
     50% {

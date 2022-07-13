@@ -50,9 +50,7 @@ export default function NavigationSearch() {
   const moveToSearchBoxPath = (event) => {
     const searchClick = event.target.innerText.split("\n",1).toString();
     navigate(`/search/${searchClick}`);
-    
     setSearchShow(false)
-    
   };
 
   const checkFuzzyStringMatch = (term) => {
@@ -109,12 +107,12 @@ export default function NavigationSearch() {
     return (...args) => {
       clearTimeout(timer);
       timer = setTimeout(()=> 
-        {console.log("args",...args)
-        callback(...args)}
+        callback(...args)
       ,delay)
     }
   }
   const processChanges = debounce((value) => getSearchMovieTitle(value),200);
+  console.log(relatedSearch);
   return (
     <SearchWrap show={searchShow} ref={searchBoxRef}>
       <form onSubmit={(event) => moveToSearchPath(event)}>
@@ -143,7 +141,7 @@ export default function NavigationSearch() {
                   style={{display: searchShow && "block"}}
                 >
                   <HighlightText
-                    title={item.original_title}
+                    title={item.title}
                     term={searchRef.current.value}
                   />
                 </SearchItem>
